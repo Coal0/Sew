@@ -97,21 +97,22 @@ Examples
     from sew import thread_join, thread
 
 
-    buffer = ["Hello, World!"]
+    buffer = ["Bar", "Foo"]
     queue = queue.Queue()
 
 
     @thread_join
-    def push_after_wait():
+    def wait_and_push():
+        """Wait until the buffer is available, then put buffer.pop() into the queue."""
         time.sleep(1)
         # Simulate wait
-        queue.put(buffer[0])
-
+        queue.put(buffer.pop())
 
     @thread
-    def read_from_buffer():
-        push_after_wait()
+    def print_next():
+        """Wait until a new element is available, then print it."""
+        wait_and_push()
         print(queue.get())
         queue.task_done()
 
-    read_from_buffer()
+    print_next()
