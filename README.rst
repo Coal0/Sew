@@ -116,3 +116,4 @@ Examples
         queue.task_done()
 
     print_next()
+    print_next()
