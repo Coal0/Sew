@@ -13,8 +13,7 @@ Sew is a general purpose utility for working with threads in Python. With Sew, m
   def foo(number):
       print("I'm running from a separate thread!")
       print("You passed me the number {}.".format(number))
-  
-  
+
   thread = threading.Thread(target=foo, args=(42,))
   thread.start()
   thread.join()
@@ -107,6 +106,7 @@ Examples
         time.sleep(1)
         # Simulate wait
         queue.put(buffer.pop())
+
 
     @thread
     def print_next():
