@@ -112,7 +112,7 @@ Examples
     def print_next():
         """Wait until a new element is available, then print it."""
         wait_and_push()
-        print(queue.get())
+        print(queue.get(timeout=0.5))
         queue.task_done()
 
     print_next()
