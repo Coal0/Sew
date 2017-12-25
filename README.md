@@ -1,2 +1,0 @@
-# Sew
-Python threading tools

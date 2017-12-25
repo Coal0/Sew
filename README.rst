@@ -1,0 +1,117 @@
+.. image:: Sew.png
+
+Sew
+===
+
+Sew is a general purpose utility for working with threads in Python. With Sew, most boilerplate threading code is removed, allowing you to focus on the issue at hand. Most of Sew's functionality uses decorators. Here's an example of a threaded function:
+
+.. code-block:: python
+
+  import threading
+  
+  
+  def foo(number):
+      print("I'm running from a separate thread!")
+      print("You passed me the number {}.".format(number))
+  
+  
+  thread = threading.Thread(target=foo, args=(42,))
+  thread.start()
+  thread.join()
+  
+With Sew:
+ 
+.. code-block:: python
+ 
+  from sew import thread_join
+
+
+  @thread_join
+  def foo(number):
+      print("I'm running from a separate thread!")
+      print("You passed me the number {}.".format(number))
+
+  foo(42)
+  
+Features
+--------
+
+Sew allows you to:
+
+* Skip ``threading`` boilerplate code;
+* Directly retrieve a threaded function's return value (blocking calls only);
+* Easily call functions after a certain delay.
+
+Objects
+-------
+
+Sew implements the following:
+
+* ``thread`` (decorator): Call a function in a separate thread.
+
+* ``thread_join`` (decorator): Call a function in a separate thread, and call ``thread.join()``.
+
+* ``thread_daemon`` (decorator): Call a function in a separate daemon thread.
+
+* ``thread_with_return_value`` (decorator): Call a function in a separate thread and return its return value.
+  Note that this makes the function call a blocking operation.
+
+|
+
+* ``delay`` (decorator): Call a function after a certain delay.
+
+* ``delay_join`` (decorator): Call a function after a certain delay, and join the thread.
+
+* ``delay_daemon`` (decorator): Call a function after a certain delay, in a daemon thread.
+
+* ``delay_with_return_value`` (decorator): Call a function after a certain delay and return its return value.
+  Note that this makes the function call a blocking operation.
+
+Examples
+--------
+
+* Reading from a ``list`` with a certain delay:
+
+  .. code-block:: python
+  
+    from sew import delay_with_return_value
+
+    numbers = [0, 1, 2, 3]
+
+
+    @delay_with_return_value(0.5)
+    def get_with_delay(index):
+        """Wait half a second before returning numbers[index]."""
+        return numbers[index]
+
+    for index in range(4):
+        print(get_with_delay(index))
+
+* Waiting until a buffer is available for reading:
+
+  .. code-block:: python
+  
+    import queue
+    import time
+
+    from sew import thread_join, thread
+
+
+    buffer = ["Hello, World!"]
+    queue = queue.Queue()
+
+
+    @thread_join
+    def push_after_wait():
+        time.sleep(1)
+        # Simulate wait
+        queue.put(buffer[0])
+
+
+    @thread
+    def read_from_buffer():
+        push_after_wait()
+        print(queue.get())
+        queue.task_done()
+
+    read_from_buffer()
