@@ -19,7 +19,9 @@ its return value.
 its return value.
 """
 
+from functools import wraps
 import threading
+
 
 __all__ = [
     "thread",
@@ -64,6 +66,7 @@ class _DelayedFunctionWithReturnValue(threading.Timer):
 
 def thread(function):
     """Run `function` in a separate thread."""
+    @wraps(function)
     def call(*args, **kwargs):
         thread = threading.Thread(
             target=function,
@@ -76,6 +79,7 @@ def thread(function):
 
 def thread_join(function):
     """Run `function` in a separate thread and join the thread."""
+    @wraps(function)
     def call(*args, **kwargs):
         thread = threading.Thread(
             target=function,
@@ -89,6 +93,7 @@ def thread_join(function):
 
 def thread_daemon(function):
     """Run `function` in a separate daemon thread."""
+    @wraps(function)
     def call(*args, **kwargs):
         thread = threading.Thread(
             target=function,
@@ -104,6 +109,7 @@ def thread_with_return_value(function):
     """Run `function` in a separate thread and return the return value.
     The function call will block due to the use of `join`.
     """
+    @wraps(function)
     def call(*args, **kwargs):
         thread = _FunctionThreadWithReturnValue(
             function=function,
@@ -114,12 +120,14 @@ def thread_with_return_value(function):
         thread.join()
         # Wait for the function to fall through to avoid
         # returning `None`
+        return thread.return_value
     return call
 
 
 def delay(seconds):
     """Wait `seconds` seconds before calling `function`."""
     def wrap(function):
+        @wraps(function)
         def call(*args, **kwargs):
             function_timer = threading.Timer(
                 seconds,
@@ -135,6 +143,7 @@ def delay(seconds):
 def delay_join(seconds):
     """Wait `seconds` seconds before calling `function` and join the thread."""
     def wrap(function):
+        @wraps(function)
         def call(*args, **kwargs):
             function_timer = threading.Timer(
                 seconds,
@@ -151,6 +160,7 @@ def delay_join(seconds):
 def delay_daemon(seconds):
     """Wait `seconds` seconds before calling `function` in a daemon thread."""
     def wrap(function):
+        @wraps(function)
         def call(*args, **kwargs):
             function_timer = threading.Timer(
                 seconds,
@@ -167,6 +177,7 @@ def delay_daemon(seconds):
 def delay_with_return_value(seconds):
     """Wait `seconds` seconds before returning the call to `function`."""
     def wrap(function):
+        @wraps(function)
         def call(*args, **kwargs):
             function_timer = _DelayedFunctionWithReturnValue(
                 seconds=seconds,
