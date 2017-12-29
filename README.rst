@@ -132,3 +132,140 @@ Examples
 
     print_next()
     print_next()
+    
+Documentation
+-------------
+
+* ``delay(seconds)``
+
+  Wait ``seconds`` seconds before calling ``function(*args, **kwargs)`` in a separate thread.
+
+  *Arguments*:
+
+  - seconds: An integer or floating point number representing the amount of seconds to wait before calling ``function(*args, **kwargs)``.
+  - function: The callable to run.
+  - *args: Positional arguments to ``function``.
+  - **kwargs: Keyword arguments to ``function``.
+
+  *Returns*:
+
+  - None.
+
+|
+
+* ``delay_daemon(seconds)``
+
+  Wait ``seconds`` seconds before calling ``function(*args, **kwargs)`` in a separate daemon thread.
+
+  *Arguments*:
+
+  - seconds: An integer or floating point number representing the amount
+    of seconds to wait before calling ``function(*args, **kwargs)``.
+  - function: The callable to run.
+  - *args: Positional arguments to ``function``.
+  - **kwargs: Keyword arguments to ``function``.
+
+  *Returns*:
+
+  - None.
+   
+|
+
+* ``delay_join(seconds)``
+
+  Wait ``seconds`` seconds before calling ``function(*args, **kwargs)`` and joining the thread.
+
+  *Arguments*:
+
+  - seconds: An integer or floating point number representing the amount
+    of seconds to wait before calling ``function(*args, **kwargs)``.
+  - function: The callable to run.
+  - *args: Positional arguments to ``function``.
+  - **kwargs: Keyword arguments to ``function``.
+
+  *Returns*:
+
+  - None.
+    
+|
+
+* ``delay_with_return_value(seconds)``
+
+  Wait ``seconds`` seconds before returning ``function(*args, **kwargs)`` from a separate thread.
+
+  *Arguments*:
+
+  - seconds: An integer or floating point number representing the amount
+    of seconds to wait before calling ``function(*args, **kwargs)``. 
+  - function: The callable to run.
+  - *args: Positional arguments to ``function``.
+  - **kwargs: Keyword arguments to ``function``.
+
+  *Returns*:
+
+  - ``function(*args, **kwargs)``.
+
+|
+
+* ``thread(function)``
+
+  Call ``function(*args, **kwargs)`` in a separate thread.
+
+  *Arguments:*
+
+  - function: The callable to run.
+  - *args: Positional arguments to ``function``.
+  - **kwargs: Keyword arguments to ``function``.
+
+  *Returns:*
+
+  - None.
+
+|
+
+* ``thread_daemon(function)``
+
+  Call ``function(*args, **kwargs)`` in a separate daemon thread.
+
+  *Arguments:*
+
+  - function: The callable to run.
+  - *args: Positional arguments to ``function``.
+  - **kwargs: Keyword arguments to ``function``.
+
+  *Returns:*
+
+  - None.
+
+|
+
+* ``thread_join(function)``
+
+  Call ``function(*args, **kwargs)`` in a thread and join the thread.
+
+  *Arguments:*
+
+  - function: The callable to run.
+  - *args: Positional arguments to ``function``.
+  - **kwargs: Keyword arguments to ``function``.
+
+  *Returns:*
+
+  - None.
+
+|
+
+* ``thread_with_return_value(function)``
+
+  Return ``function(*args, **kwargs)`` from a separate thread.
+  The function call will block due to the use of ``join``.
+
+  *Arguments:*
+
+  - function: The callable to run.
+  - *args: Positional arguments to ``function``.
+  - **kwargs: Keyword arguments to ``function``.
+
+  *Returns:*
+
+  - The return value of ``function(*args, **kwargs)``.
