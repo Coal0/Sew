@@ -35,7 +35,7 @@ With Sew:
 Installing
 ----------
 
-Sew is now in PyPi.org!
+Sew is now on PyPi.org!
 
 .. code-block:: shell
 
