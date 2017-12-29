@@ -3,7 +3,7 @@
 Sew
 ===
 
-Sew is a general purpose utility for working with threads in Python. With Sew, most boilerplate threading code is removed, allowing you to focus on the issue at hand. Most of Sew's functionality uses decorators. Here's an example of a threaded function:
+Sew is a general purpose utility for working with threads in Python 3. With Sew, most boilerplate threading code is removed, allowing you to focus on the issue at hand. Most of Sew's functionality uses decorators. Here's an example of a threaded function:
 
 .. code-block:: python
 
@@ -31,6 +31,21 @@ With Sew:
       print("You passed me the number {}.".format(number))
 
   foo(42)
+  
+Installing
+----------
+
+Sew is now in PyPi.org!
+
+.. code-block:: shell
+
+  pip install Sew
+  
+Or, in case ``pip3`` links to your local Python 3 installation:
+
+.. code-block:: shell
+
+  pip3 install Sew
   
 Features
 --------
